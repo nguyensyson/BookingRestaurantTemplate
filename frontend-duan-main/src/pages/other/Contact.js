@@ -104,11 +104,11 @@ const Contact = ({ location }) => {
                     <div className="contact-info-dec">
                       <p>
                         <a href="mailto:polyfood@email.com">
-                          polyfood@store.com
+                          beesmeal@store.com
                         </a>
                       </p>
                       <p>
-                        <a href="//polyfood.store">polyfood.store</a>
+                        <a href="//polyfood.store">beesmeal.store</a>
                       </p>
                     </div>
                   </div>
