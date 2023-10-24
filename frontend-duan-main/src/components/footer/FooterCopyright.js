@@ -14,13 +14,13 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
             alt="polyfood"
             style={{ maxWidth: "200px" }}
             src={
-              "https://res.cloudinary.com/do9rcgv5s/image/upload/v1692137209/e2nw6oqvtlvpqmdwtmnh.png"
+              "https://res.cloudinary.com/darvug7fk/image/upload/v1697993413/BeesMeal/ixjvkcrjmmegilquw2zg.png"
             }
           />
         </Link>
       </div>
       <p className="text-center text-light">
-        Poly Food là nhà hàng Thuần chay và Cung cấp thực phẩm chay
+        BeesMeal là nhà hàng ẩm thực Việt Nam cung cấp các món ăn từ bình dân tới cao cấp
       </p>
     </div>
   );

@@ -58,7 +58,7 @@ const HeaderOne = ({
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
               <Logo
-                imageUrl="https://res.cloudinary.com/darvug7fk/image/upload/v1697473265/BeesMeal/op2mlrl6gxdkit3mtktj.png"
+                imageUrl="https://res.cloudinary.com/darvug7fk/image/upload/v1697993413/BeesMeal/ixjvkcrjmmegilquw2zg.png"
                 logoClass="logo mt-0"
               />
             </div>
