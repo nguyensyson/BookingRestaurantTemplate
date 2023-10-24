@@ -5,7 +5,7 @@
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Lê Văn Thuận"
+    "name": "Nguyễn Sỹ Sơn"
   },
   {
     "id": "2",
@@ -13,7 +13,7 @@
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Trần Văn Giang"
+    "name": "Đoàn Văn Công"
   },
   {
     "id": "3",
@@ -21,7 +21,7 @@
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Đồng Công Định"
+    "name": "Trần Yến My"
   },
   {
     "id": "4",
@@ -29,7 +29,7 @@
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Nguyễn Đăng Huy"
+    "name": "Tạ Thị Linh Nhi"
   },
   {
     "id": "5",
@@ -37,14 +37,6 @@
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Nguyễn Đức Duy"
-  },
-  {
-    "id": "6",
-    "image": "/assets/img/team/member.jpg",
-    "fbLink": "//www.facebook.com",
-    "twitterLink": "//www.twitter.com",
-    "instagramLink": "//www.instagram.com",
-    "name": "Đinh Đức Hải"
+    "name": "Triệu Xuân Hoà"
   }
 ]
