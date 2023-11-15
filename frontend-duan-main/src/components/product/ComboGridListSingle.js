@@ -7,7 +7,7 @@ import { Rate } from "antd";
 import ProductModal from "./ProductModal";
 import CartApi from "../../api/cart/CartApi";
 
-const ProductGridListSingle = ({
+const ComboGridListSingle = ({
   product,
   currency,
   addToCart,
@@ -122,14 +122,14 @@ const ProductGridListSingle = ({
                     disabled={cartItem !== undefined && cartItem.quantity > 0}
                     title={
                       cartItem !== undefined
-                        ? "Thêm vào giỏ hàng"
-                        : "Thêm vào giỏ hàng"
+                        ? "Đặt ngay"
+                        : "Đặt ngay"
                     }>
                     {" "}
                     <i className="pe-7s-cart"></i>{" "}
                     {cartItem !== undefined && cartItem.quantity > 0
-                      ? "Đã thêm vào giỏ hàng"
-                      : "Thêm vào giỏ hàng"}
+                      ? "Đã đặt"
+                      : "Đặt ngay"}
                   </button>
                 ) : (
                   <button disabled className="active">
@@ -324,14 +324,14 @@ const ProductGridListSingle = ({
                         }
                         title={
                           cartItem !== undefined
-                            ? "Đã thêm vào giỏ hàng"
-                            : "Thêm vào giỏ hàng"
+                            ? "Đã Đặt"
+                            : "Đặt ngay"
                         }>
                         {" "}
                         <i className="pe-7s-cart"></i>{" "}
                         {cartItem !== undefined && cartItem.quantity > 0
-                          ? "Thêm"
-                          : "Thêm vào giỏ hàng"}
+                          ? "Đặt ngay"
+                          : "Đặt ngay"}
                       </button>
                     ) : (
                       <button disabled className="active">
@@ -392,7 +392,7 @@ const ProductGridListSingle = ({
   );
 };
 
-ProductGridListSingle.propTypes = {
+ComboGridListSingle.propTypes = {
   addToCart: PropTypes.func,
   addToCompare: PropTypes.func,
   addToWishlist: PropTypes.func,
@@ -405,4 +405,4 @@ ProductGridListSingle.propTypes = {
   wishlistItem: PropTypes.object,
 };
 
-export default ProductGridListSingle;
+export default ComboGridListSingle;

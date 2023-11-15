@@ -8,7 +8,7 @@ import ShopSearch from "../../components/product/ShopSearch";
 import ShopCategories from "../../components/product/ShopCategories";
 import ShopTag from "../../components/product/ShopTag";
 
-const ShopSidebar = ({
+const ComboSidebar = ({
   products,
   getSortParams,
   sideSpaceClass,
@@ -22,20 +22,20 @@ const ShopSidebar = ({
       {/* shop search */}
       <ShopSearch setFilterSortName={setFilterSortName} />
       {/* filter by categories */}
-      <ShopCategories
+      {/* <ShopCategories
         categories={uniqueCategories}
         getSortParams={getSortParams}
-      />
+      /> */}
       {/* filter by tag
       <ShopTag tags={uniqueTags} getSortParams={getSortParams} /> */}
     </div>
   );
 };
 
-ShopSidebar.propTypes = {
+ComboSidebar.propTypes = {
   getSortParams: PropTypes.func,
   products: PropTypes.array,
   sideSpaceClass: PropTypes.string,
 };
 
-export default ShopSidebar;
+export default ComboSidebar;

@@ -379,7 +379,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
         Trang chủ
       </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Thanh Toán
+        Đặt lịch
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
@@ -403,7 +403,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                           />
                         </div>
                       </div>
-                      <div className="col-lg-12">
+                      {/* <div className="col-lg-12">
                         <div className="row">
                           <div className="col">
                             <div className="billing-select mb-20">
@@ -457,8 +457,8 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="col-lg-12">
+                      </div> */}
+                      {/* <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Địa chỉ</label>
                           <input
@@ -469,28 +469,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                             value={userOrder.address}
                             onChange={onChanginput}
                           />
-                          {/* <input
-                            placeholder="Apartment, suite, unit etc."
-                            type="text"
-                          /> */}
-                        </div>
-                      </div>
-                      {/* <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Town / City</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>State / County</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Postcode / ZIP</label>
-                          <input type="text" />
+                
                         </div>
                       </div> */}
                       <div className="col-lg-6 col-md-6">
@@ -506,9 +485,31 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>Email</label>
+                          <label>Loại phòng</label>
                           <input
-                            name="email"
+                            name="categoryRoom"
+                            onChange={onChanginput}
+                            type="text"
+                            value={userOrder.email}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-6">
+                        <div className="billing-info mb-20">
+                          <label>Ngày</label>
+                          <input
+                            type="text"
+                            onChange={onChanginput}
+                            name="date"
+                            value={userOrder.phone}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-6">
+                        <div className="billing-info mb-20">
+                          <label>Giờ</label>
+                          <input
+                            name="hour"
                             onChange={onChanginput}
                             type="text"
                             value={userOrder.email}
@@ -516,6 +517,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                         </div>
                       </div>
                     </div>
+                    
 
                     <div className="additional-info-wrap">
                       <h4>Ghi chú</h4>

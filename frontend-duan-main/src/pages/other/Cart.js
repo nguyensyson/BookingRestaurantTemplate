@@ -67,8 +67,8 @@ const Cart = ({
                             <th>Tên sản phẩm</th>
                             <th>Đơn giá</th>
                             <th>Số lượng</th>
-                            <th>tổng phụ</th>
-                            <th>hoạt động</th>
+                            <th>Tổng tiền</th>
+                            <th>Hoạt động</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -327,7 +327,7 @@ const Cart = ({
                       <div className="cart-shiping-update">
                         <Link
                           to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                          Tiếp tục mua sắm
+                          Tiếp tục chọn món
                         </Link>
                       </div>
                       <div className="cart-clear">
@@ -421,7 +421,7 @@ const Cart = ({
                         </span>
                       </h4>
                       <Link to={process.env.PUBLIC_URL + "/checkout"}>
-                        Tiến hành kiểm tra
+                        Tiến hành đặt lịch
                       </Link>
                     </div>
                   </div>
@@ -437,7 +437,7 @@ const Cart = ({
                     <div className="item-empty-area__text">
                       Không tìm thấy mặt hàng nào trong giỏ hàng <br />{" "}
                       <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                        Mua ngay
+                        Chọn món ngay
                       </Link>
                     </div>
                   </div>

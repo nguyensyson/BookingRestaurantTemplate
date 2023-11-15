@@ -113,7 +113,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
             <Link
               className="default-btn"
               to={process.env.PUBLIC_URL + "/checkout"}>
-              Thanh toán
+              Đặt lịch
             </Link>
           </div>
         </Fragment>

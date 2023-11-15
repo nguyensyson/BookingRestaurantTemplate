@@ -54,11 +54,11 @@ const Product = ({ location, product }) => {
         />
 
         {/* product description tab */}
-        <ProductDescriptionTab
+        {/* <ProductDescriptionTab
           spaceBottomClass="pb-90"
           productFullDesc={product.fullDescription}
           productId={product.id}
-        />
+        /> */}
 
         {/* related product slider */}
         <RelatedProductSlider
