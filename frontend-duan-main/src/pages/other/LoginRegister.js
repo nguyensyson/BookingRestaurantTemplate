@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { message } from "antd";
 import LoadingSpin from "../../components/loading/LoadingSpin";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const LoginRegister = ({ location }) => {
   const { pathname } = location;
@@ -19,13 +20,13 @@ const LoginRegister = ({ location }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [activeKey, setActiveKey] = useState("login");
   const [dataLogin, setDataLogin] = useState({
-    email: "",
+    sdt: "",
     password: "",
   });
   const [dataRegister, setDataRegister] = useState({
-    email: "",
+    sdt: "",
     password: "",
-    username: "",
+    fullname: ""
   });
   const changeInputValue = (val) => {
     setDataLogin({
@@ -41,9 +42,9 @@ const LoginRegister = ({ location }) => {
   };
   const handleSubmitRegister = async (e) => {
     if (
-      !dataRegister.email ||
+      !dataRegister.sdt ||
       !dataRegister.password ||
-      !dataRegister.username ||
+      !dataRegister.fullname ||
       !dataRegister.confirmpassword
     ) {
       messageApi.open({
@@ -61,14 +62,19 @@ const LoginRegister = ({ location }) => {
     }
     e.preventDefault();
     const formData = new FormData();
-    formData.append("UserName", dataRegister.username);
-    formData.append("Email", dataRegister.email);
-    formData.append("Password", dataRegister.password);
-    formData.append("Status", 1);
-    formData.append("DecentralizationId", 3);
+    formData.append("sdt", dataRegister.sdt);
+    formData.append("password", dataRegister.password);
+    formData.append("fullname", dataRegister.fullname);
+    // formData.append("Status", 1);
+    // formData.append("DecentralizationId", 3);
     try {
       setLoading(true);
-      const response = await UserApi.Register(formData); // đưa dữ liệu lên đăng ký
+      // const response = await UserApi.Register(formData); // đưa dữ liệu lên đăng ký
+      const response = await axios.post("http://localhost:8080/api/auth/register", {
+        sdt: dataRegister.sdt,
+        password: dataRegister.password,
+        fullname: dataRegister.fullname
+      });
       messageApi.open({
         type: "success",
         content: "Bạn đã đăng ký thành công",
@@ -77,10 +83,10 @@ const LoginRegister = ({ location }) => {
       setDataRegister(
         (prev) =>
           (prev = {
-            email: "",
+            sdt: "",
             password: "",
             confirmpassword: "",
-            username: "",
+            fullname: "",
           })
       );
       setActiveKey("login");
@@ -89,7 +95,7 @@ const LoginRegister = ({ location }) => {
       console.error(error);
       messageApi.open({
         type: "error",
-        content: "Đăng ký thất bại",
+        content: "Đăng ký không thành công",
       });
       setLoading(false);
       // Xử lý lỗi tại đây (ví dụ: hiển thị thông báo lỗi)
@@ -97,7 +103,7 @@ const LoginRegister = ({ location }) => {
   };
 
   const handleSubmit = async (e) => {
-    if (!dataLogin.email || !dataLogin.password) {
+    if (!dataLogin.sdt || !dataLogin.password) {
       messageApi.open({
         type: "error",
         content: "Không để trống các trường",
@@ -109,44 +115,57 @@ const LoginRegister = ({ location }) => {
       const expirationTime = new Date().getTime() + 4 * 60 * 60 * 1000;
       // const expirationTime = new Date().getTime() + (1 * 60 * 1000);
       setLoading(true);
-      const response = await UserApi.Login(dataLogin); // đưa dữ liệu lên đăng ký
-      if (response?.data?.decentralizationId !== 3) {
+      // const response = await UserApi.Login(dataLogin); // đưa dữ liệu lên đăng ký
+      const response = await axios.post("http://localhost:8080/api/auth/authenticate", {
+        username: dataLogin.sdt,
+        password: dataLogin.password
+      });
+      const role = JSON.stringify(response.data.roleId);
+      console.log(role);
+      console.log(role != 3);
+      if (role != 3) {
         messageApi.open({
           type: "success",
           content: "Đăng nhập Admin",
         });
         //nếu đi vào đây thì người đó không phải là người dùng nên phải đưa về admin
-        const userJSON = JSON.stringify(response.data); // lưu dữ liệu người dùng
-        const token = JSON.stringify(response.loginResponse.token); // lưu token vào để sau lấy dữ liệu sẽ cần phải dùng
-        localStorage.setItem("user", userJSON);
+        // const userJSON = JSON.stringify(response.data); // lưu dữ liệu người dùng
+        const token = JSON.stringify(response.accessToken); // lưu token vào để sau lấy dữ liệu sẽ cần phải dùng
+        // localStorage.setItem("user", userJSON);
         localStorage.setItem("token", token);
         localStorage.setItem("expiration", expirationTime);
+        localStorage.setItem("roleId", role);
 
         setTimeout(function () {
           setLoading(false);
           history.push("/admin");
         }, 1000);
         return;
-      }
-      // response.data.password = null;
-      const userJSON = JSON.stringify(response.data); // lưu dữ liệu người dùng
-      const token = JSON.stringify(response.loginResponse.token); // lưu token vào để sau lấy dữ liệu sẽ cần phải dùng
-      localStorage.setItem("user", userJSON);
+      } else {
+
+        // response.data.password = null;
+      // const userJSON = JSON.stringify(response.data); // lưu dữ liệu người dùng
+      const token = JSON.stringify(response.accessToken); // lưu token vào để sau lấy dữ liệu sẽ cần phải dùng
+      // localStorage.setItem("user", userJSON);
       localStorage.setItem("token", token);
       localStorage.setItem("expiration", expirationTime);
+      localStorage.setItem("roleId", role);
       messageApi.open({
         type: "success",
-        content: "Chào mừng bạn đã đến poly-food.",
+        content: "Chào mừng bạn đã đến BeesMeal.",
       });
       setTimeout(function () {
         setLoading(false);
         history.push("/");
       }, 1000);
+      }
+      
       // Xử lý phản hồi từ API tại đây (ví dụ: hiển thị thông báo thành công, điều hướng đến trang khác, vv)
     } catch (error) {
       messageApi.open({
         type: "error",
-        content: error.response.data,
+        content: "Đăng nhập thất bại",
+        // content: error.response.data,
       });
       setLoading(false);
       // Xử lý lỗi tại đây (ví dụ: hiển thị thông báo lỗi)
@@ -201,10 +220,10 @@ const LoginRegister = ({ location }) => {
                           <div className="login-register-form">
                             <form>
                               <input
-                                type="email"
-                                name="email"
-                                value={dataLogin.email}
-                                placeholder="Email"
+                                type="text"
+                                name="sdt"
+                                value={dataLogin.sdt}
+                                placeholder="Sdt"
                                 onChange={changeInputValue}
                                 required
                               />
@@ -255,8 +274,8 @@ const LoginRegister = ({ location }) => {
                             <form>
                               <input
                                 type="text"
-                                name="username"
-                                value={dataRegister.username}
+                                name="fullname"
+                                value={dataRegister.fullname}
                                 placeholder="Họ tên"
                                 onChange={setInputValue}
                                 required
@@ -278,10 +297,10 @@ const LoginRegister = ({ location }) => {
                                 required
                               />
                               <input
-                                name="email"
-                                value={dataRegister.email}
-                                placeholder="Email"
-                                type="email"
+                                name="sdt"
+                                value={dataRegister.sdt}
+                                placeholder="Sdt"
+                                type="text"
                                 onChange={setInputValue}
                                 required
                               />

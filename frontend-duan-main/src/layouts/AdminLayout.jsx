@@ -28,6 +28,7 @@ import {
 } from "@ant-design/icons";
 import { BsCart2, BsBoxSeam, BsClock, BsBagCheck } from "react-icons/bs";
 import { CiBoxList, CiDiscount1 } from "react-icons/ci";
+import { MdMeetingRoom, MdTableRestaurant } from "react-icons/md";
 import {
   MdOutlineCategory,
   MdOutlineCancel,
@@ -56,41 +57,43 @@ import DiscountList from "../components/admin/DiscountManager/DiscountList";
 import SlideList from "../components/admin/SlidesManager/SlideList";
 import SlideAdd from "../components/admin/SlidesManager/SlideAdd";
 import SlideChildAdd from "../components/admin/SlidesManager/SlideChildAdd";
+import jwt from "jsonwebtoken";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const history = useHistory();
-  // useEffect(() => {
-  //   const Token = localStorage.getItem("token");
-  //   if (Token !== null) {
-  //     // Phân tách JWT thành các phần: header, payload và signature
-  //     const parts = Token.split(".");
-  //     const encodedPayload = parts[1];
-  //     // Giải mã phần payload từ Base64
-  //     const decodedPayload = atob(encodedPayload);
-  //     // Chuyển đổi chuỗi JSON thành đối tượng JavaScript
-  //     const payloadObject = JSON.parse(decodedPayload);
-  //     // Truy cập vào giá trị "role"
-  //     const role = payloadObject.role;
-  //     if (role !== "admin") {
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Thất bại...",
-  //         text: "Bạn không có quyền để vào trang quản trị!",
-  //       });
-  //       history.push("/");
-  //     }
-  //   } else {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Thất bại...",
-  //       text: "Vui lòng đăng nhập để có thể vào hệ thống!",
-  //     });
-  //     history.push("/login-register");
-  //   }
-  // }, [history]);
+  useEffect(() => {
+    const Token = localStorage.getItem("token");
+    if (Token !== null) {
+      // Phân tách JWT thành các phần: header, payload và signature
+      // const parts = Token.split(".");
+      // const encodedPayload = parts[1];
+      // Giải mã phần payload từ Base64
+      // const decodedPayload = atob(encodedPayload);
+      // Chuyển đổi chuỗi JSON thành đối tượng JavaScript
+      // const payloadObject = JSON.parse(decodedPayload);
+      // Truy cập vào giá trị "role"
+      // const role = payloadObject.role;
+      const role = localStorage.getItem("roleId");
+      if (role == 3) {
+        Swal.fire({
+          icon: "error",
+          title: "Thất bại...",
+          text: "Bạn không có quyền để vào trang quản trị!",
+        });
+        history.push("/");
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Thất bại...",
+        text: "Vui lòng đăng nhập để có thể vào hệ thống!",
+      });
+      history.push("/login-register");
+    }
+  }, [history]);
   // Handle Logout AdminLayout
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -228,6 +231,30 @@ const AdminLayout = () => {
             </Menu.Item>
             <Menu.Item key="/admin/discount-add" icon={<IoCreateOutline />}>
               <NavLink to="/admin/discount-add">Thêm mã discount</NavLink>
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu
+            key="subMenu-5"
+            icon={<MdMeetingRoom />}
+            title="Quản lý phòng ăn"
+          >
+            <Menu.Item key="/admin/dinner-room" icon={<CiBoxList />}>
+              <NavLink to="/admin/dinner-room">Danh sách phòng ăn</NavLink>
+            </Menu.Item>
+            <Menu.Item key="/admin/room-add" icon={<IoCreateOutline />}>
+              <NavLink to="/admin/room-add">Thêm phòng ăn</NavLink>
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu
+            key="subMenu-5"
+            icon={<MdTableRestaurant />}
+            title="Quản lý bàn ăn"
+          >
+            <Menu.Item key="/admin/dinner-table" icon={<CiBoxList />}>
+              <NavLink to="/admin/dinner-table">Danh sách bàn ăn</NavLink>
+            </Menu.Item>
+            <Menu.Item key="/admin/table-add" icon={<IoCreateOutline />}>
+              <NavLink to="/admin/table-add">Thêm bàn ăn</NavLink>
             </Menu.Item>
           </SubMenu>
 

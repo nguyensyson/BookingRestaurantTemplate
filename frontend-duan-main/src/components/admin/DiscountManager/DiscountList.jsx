@@ -224,15 +224,9 @@ const DiscountList = () => {
       align: "center",
     },
     {
-      title: "Tên mã giảm giá",
+      title: "discount name",
       dataIndex: "title",
       key: "title",
-      align: "center",
-    },
-    {
-      title: "Mã giảm giá",
-      dataIndex: "code",
-      key: "code",
       align: "center",
     },
     {
@@ -242,26 +236,11 @@ const DiscountList = () => {
       align: "center",
     },
     {
-      title: "Số lượng",
-      dataIndex: "quantity",
-      key: "quantity",
-      align: "center",
-    },
-    {
-      title: "Ngày sản xuất",
+      title: "Ngày bắt đầu",
       dataIndex: "createdAt",
       key: "createdAt",
       align: "center",
       render: (createdAt) => <>{format(new Date(createdAt), "dd/MM/yyyy")}</>,
-    },
-    {
-      title: "Hạn sử dụng",
-      dataIndex: "expirationDate",
-      key: "expirationDate",
-      align: "center",
-      render: (expirationDate) => (
-        <>{format(new Date(expirationDate), "dd/MM/yyyy")}</>
-      ),
     },
     {
       title: "Ngày kết thúc",

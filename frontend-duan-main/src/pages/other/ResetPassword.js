@@ -29,22 +29,22 @@ const ResetPassword = ({ location }) => {
       [val.target.name]: val.target.value,
     });
   };
-  useEffect(async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const tokenParam = urlParams.get("token");
-    if (!tokenParam) {
-      history.push("/");
-    }
-    try {
-      const res = await UserApi.CheckToken(tokenParam);
-      setDataLogin({
-        ...dataLogin,
-        resetPasswordToken: tokenParam,
-      });
-    } catch (error) {
-      history.push("/");
-    }
-  }, []);
+  // useEffect(async () => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const tokenParam = urlParams.get("token");
+  //   if (!tokenParam) {
+  //     history.push("/");
+  //   }
+  //   try {
+  //     const res = await UserApi.CheckToken(tokenParam);
+  //     setDataLogin({
+  //       ...dataLogin,
+  //       resetPasswordToken: tokenParam,
+  //     });
+  //   } catch (error) {
+  //     history.push("/");
+  //   }
+  // }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -116,7 +116,7 @@ const ResetPassword = ({ location }) => {
                         <Nav.Link
                           eventKey="login"
                           onClick={() => setActiveKey("login")}>
-                          <h4>Quên mật khẩu</h4>
+                          <h4>Đổi mật khẩu</h4>
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
@@ -130,11 +130,18 @@ const ResetPassword = ({ location }) => {
                           )}
                           <div className="login-register-form">
                             <form>
+                            <input
+                                type="password"
+                                name="OldPassword"
+                                placeholder="old password"
+                                onChange={changeInputValue}
+                                required
+                              />
                               <input
                                 type="password"
                                 name="NewPassword"
                                 value={dataLogin.NewPassword}
-                                placeholder="password"
+                                placeholder="new password"
                                 onChange={changeInputValue}
                                 required
                               />

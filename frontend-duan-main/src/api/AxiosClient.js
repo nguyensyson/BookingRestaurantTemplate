@@ -8,7 +8,7 @@ import queryString from "query-string";
 // const config = process.env.NODE_ENV === "production" ? prodConfig : devConfig;
 const axiosClient = axios.create({
   // baseURL: config,
-  baseURL: "https://localhost:8080/api/",
+  baseURL: "http://localhost:8080/api/",
   headers: {
     "content-type": "application/json",
   },

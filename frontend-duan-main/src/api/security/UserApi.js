@@ -17,11 +17,11 @@ const UserApi = {
     });
   },
   RefreshToken: (body) => {
-    const url = "/Login/refresh-token";
+    const url = "/auth/refresh-token";
     return axiosClient.post(url, body);
   },
   Register: (body) => {
-    const url = "/Login/register-user";
+    const url = "/auth/register";
     return axiosClient.post(url, body, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -29,7 +29,7 @@ const UserApi = {
     });
   },
   Login: (body) => {
-    const url = "/Login/login";
+    const url = "/auth/authenticate";
     return axiosClient.post(url, body, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -37,7 +37,7 @@ const UserApi = {
     });
   },
   ChangePass: (body) => {
-    const url = `/Login/change-pass`;
+    const url = `/auth/change-password`;
     return axiosClient.post(url, body, {
       headers: {
         Authorization: `Bearer ${

@@ -6,7 +6,8 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useToasts } from "react-toast-notifications";
 import VoucherApi from "../../../api/voucher/VoucherApi";
 import { format } from "date-fns";
-import { DatePicker } from "antd";
+import { DatePicker, Table } from "antd";
+import { ImBin } from "react-icons/im";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "* ${label} không được để trống",
@@ -14,11 +15,50 @@ const validateMessages = {
     number: "* ${label} không đúng định dạng số",
   },
 };
+
 const DiscountAdd = () => {
   const { addToast } = useToasts();
   const history = useHistory();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+
+  const dataSource = [
+    {
+      key: "1",
+      name: "Mike",
+      age: 32,
+      address: "10 Downing Street",
+    },
+    {
+      key: "2",
+      name: "John",
+      age: 42,
+      address: "10 Downing Street",
+    },
+  ];
+
+  const columns = [
+    {
+      title: "Avatar",
+      dataIndex: "avatar",
+      key: "avatar",
+    },
+    {
+      title: "Name product",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+    },
+  ];
   const onHandleSubmit = () => {
     form.validateFields().then(async (item) => {
       const currentDate = new Date();
@@ -31,6 +71,7 @@ const DiscountAdd = () => {
         });
         return;
       }
+
       const formDataApi = new FormData();
       const formData = {
         voucherName: item.voucherName,
@@ -59,17 +100,19 @@ const DiscountAdd = () => {
         }}
       >
         <Breadcrumb.Item>Bảng điều khiển</Breadcrumb.Item>
-        <Breadcrumb.Item>Tạo mã giảm giá</Breadcrumb.Item>
+        <Breadcrumb.Item>Tạo mã khuyến mại</Breadcrumb.Item>
       </Breadcrumb>
       <div className="mt-3">
         <Title level={4} className="text-uppercase text-center">
-          Thêm mã giảm giá
+          Thêm khuyến mại
         </Title>
         {loading && (
           <div>
             <LoadingSpin />
           </div>
         )}
+        {/* <div className="row">
+          <div className="col-lg-6"> */}
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -105,27 +148,29 @@ const DiscountAdd = () => {
             />
           </Form.Item>
           <Form.Item
-            label="Số lượng"
-            name="countVoucher"
+            label="Ngày bắt đầu"
+            name="startDate"
             labelCol={{ span: 3, offset: 1 }}
-            tooltip="Tổng số lượng mã giảm giá"
+            tooltip="ngày bắt đầu"
             rules={[{ required: true }]}
           >
-            <Input
-              style={{ height: 30 }}
-              placeholder="Nhập số lượng mã giảm giá..."
-              type="number"
-            />
+            <DatePicker placeholder="Ngày bắt đầu" />
           </Form.Item>
+
           <Form.Item
-            label="HSD"
-            name="expirationDate"
+            label="Ngày kết thúc"
+            name="endDate"
             labelCol={{ span: 3, offset: 1 }}
-            tooltip="Hạn sử dụng mã giảm giá"
+            tooltip="ngày hến hạn"
             rules={[{ required: true }]}
           >
-            <DatePicker placeholder="Hạn sử dụng..." />
+            <DatePicker placeholder="Ngày hết hạn..." />
           </Form.Item>
+
+          <Form.Item wrapperCol={{ span: 20, offset: 2 }}>
+            <Table dataSource={dataSource} columns={columns} />;
+          </Form.Item>
+
           <Form.Item wrapperCol={{ span: 16, offset: 4 }}>
             <Button
               type="primary"
@@ -133,10 +178,13 @@ const DiscountAdd = () => {
               onClick={onHandleSubmit}
               block
             >
-              Thêm mới mã giảm giá
+              Thêm mới khuyến mại
             </Button>
           </Form.Item>
         </Form>
+        {/* <Table columns={columns} /> */}
+        {/* </div>
+        </div> */}
       </div>
     </>
   );

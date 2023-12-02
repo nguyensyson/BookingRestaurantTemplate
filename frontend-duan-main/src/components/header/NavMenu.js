@@ -36,6 +36,11 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
             </Link>
           </li>
           <li>
+            <Link to={process.env.PUBLIC_URL + "/checkout"}>
+              {strings["booking"]}
+            </Link>
+          </li>
+          <li>
             <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
               {strings["blog"]}
             </Link>
