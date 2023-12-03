@@ -18,6 +18,7 @@ import CartApi from "../../api/cart/CartApi";
 import AddressApi from "../../api/ghn/AddressApi";
 import GiaoHangNhanhApi from "../../api/ghn/GiaoHangNhanhApi";
 import { number } from "prop-types";
+import DatePicker from 'react-datepicker';
 
 const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
   const validateUserOrder = (userOrder) => {
@@ -62,13 +63,25 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const history = useHistory();
   // getProvinceData
-  const [provinces, setProvinces] = useState([]);
+  const [provinces, setProvinces] = useState([
+    {"ProvinceID": 1,
+    "ProvinceName": "Phòng thường"},
+    {"ProvinceID": 2,
+      "ProvinceName": "Phòng VIP"},
+    {"ProvinceID": 3,
+      "ProvinceName": "Phòng VIPPRO"}
+  ]);
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [districts, setDistricts] = useState([]);
   const [intendTime, setIntendTime] = useState(-1);
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [wards, setWards] = useState([]);
   const [selectedWard, setSelectedWard] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const handleDateChange = date => {
+  //   setSelectedDate(date);
+  //   // You can perform any additional operations here when the date changes
+  // };
   console.log(selectedProvince, selectedDistrict, selectedWard);
   const [userOrder, setUserOrder] = useState({
     paymentId: 1,
@@ -113,16 +126,16 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
     });
   }, [discount, transportFee, selectedWard, intendTime]);
   console.log(userOrder);
-  // getProvinceData
-  useEffect(() => {
-    const getProvinceData = async () => {
-      try {
-        const { data } = await AddressApi.getProvinceData();
-        setProvinces(data);
-      } catch (error) {}
-    };
-    getProvinceData();
-  }, []);
+  // getProvinceData get tỉnh thành data
+  // useEffect(() => {
+  //   const getProvinceData = async () => {
+  //     try {
+  //       const { data } = await AddressApi.getProvinceData();
+  //       setProvinces(data);
+  //     } catch (error) {}
+  //   };
+  //   getProvinceData();
+  // }, []);
   useEffect(async () => {
     try {
       const res = await GiaoHangNhanhApi.CalculateShippingFeeApi({
@@ -379,14 +392,14 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
         Trang chủ
       </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Thanh Toán
+        Đặt lịch
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="checkout-area pt-95 pb-100">
           <div className="container">
-            {cartItems && cartItems.length >= 1 ? (
+            {/* {cartItems && cartItems.length >= 1 ? ( */}
               <div className="row">
                 <div className="col-lg-7">
                   <div className="billing-info-wrap">
@@ -403,7 +416,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                           />
                         </div>
                       </div>
-                      <div className="col-lg-12">
+                      {/* <div className="col-lg-12">
                         <div className="row">
                           <div className="col">
                             <div className="billing-select mb-20">
@@ -457,8 +470,8 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="col-lg-12">
+                      </div> */}
+                      {/* <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Địa chỉ</label>
                           <input
@@ -469,28 +482,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                             value={userOrder.address}
                             onChange={onChanginput}
                           />
-                          {/* <input
-                            placeholder="Apartment, suite, unit etc."
-                            type="text"
-                          /> */}
-                        </div>
-                      </div>
-                      {/* <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Town / City</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>State / County</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Postcode / ZIP</label>
-                          <input type="text" />
+                
                         </div>
                       </div> */}
                       <div className="col-lg-6 col-md-6">
@@ -505,17 +497,64 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
+                        <div className="billing-select mb-20">
+                          <label>Loại phòng</label>
+                          <select
+                                onChange={handleProvinceChange}
+                                value={selectedProvince || ""}>
+                                <option value="">Chọn loại phòng</option>
+                                {provinces.data?.map((province) => (
+                                  <option
+                                    key={province.ProvinceID}
+                                    value={province.ProvinceID}>
+                                    {province.ProvinceName}
+                                  </option>
+                                ))}
+                              </select>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-4 col-md-4">
                         <div className="billing-info mb-20">
-                          <label>Email</label>
+                          <label>Ngày</label>
+                          {/* <input
+                            type="text"
+                            onChange={onChanginput}
+                            name="date"
+                            value={userOrder.phone}
+                          /> */}
+                          <DatePicker
+                            // showIcon
+                            selected={selectedDate}
+                            onChange={(date) => setSelectedDate(date)}
+                            // icon="fa fa-calendar"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-4 col-md-4">
+                        <div className="billing-info mb-20">
+                          <label>Giờ check in</label>
                           <input
-                            name="email"
+                            name="hour"
                             onChange={onChanginput}
                             type="text"
                             value={userOrder.email}
                           />
                         </div>
                       </div>
+                      <div className="col-lg-4 col-md-4">
+                        <div className="billing-info mb-20">
+                          <label>Số người tham gia</label>
+                          <input
+                            name="number people"
+                            onChange={onChanginput}
+                            type="number"
+                            // value={userOrder.email}
+                          />
+                        </div>
+                      </div>
                     </div>
+                    
 
                     <div className="additional-info-wrap">
                       <h4>Ghi chú</h4>
@@ -601,7 +640,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                             })}
                           </ul>
                         </div>
-                        <div className="your-order-bottom">
+                        {/* <div className="your-order-bottom">
                           <ul>
                             <li className="your-order-shipping">
                               Chi phí vận chuyển
@@ -612,7 +651,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                                 : "đang tính chi phí"}
                             </li>
                           </ul>
-                        </div>
+                        </div> */}
                         {discount && discount.valuevoucher > 0 && (
                           <div className="your-order-total">
                             <ul>
@@ -671,7 +710,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                           </ul>
                         </div>
                       </div>
-                      <div className="payment-method">
+                      {/* <div className="payment-method">
                         <b>Thời gian giao hàng dự kiến</b>:{" "}
                         {intendTime !== -1
                           ? Math.floor(
@@ -688,32 +727,17 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                                   (60 * 60 * 24)
                               ) + " ngày"
                           : "Vui lòng nhập vào địa chỉ."}
-                      </div>
-                      <div className="payment-method">
+                      </div> */}
+                      {/* <div className="payment-method">
                         <li style={{ color: "#f58634", padding: "10px 0" }}>
                           {" "}
                           Chi phí cuối cùng đã là chi phí đã được tính cùng với
-                          phí vận chuyển
+                          phụ phí
                         </li>
-                      </div>
-                    </div>
-                    <div className="place-order mt-25">
-                      <button
-                        className="btn-hover"
-                        onClick={confirmOrderShipCode}>
-                        Thanh Toán khi nhận hàng
-                      </button>
-                    </div>
-                    <div className="place-order mt-25">
-                      <button
-                        className="btn-hover"
-                        onClick={confirmOrderPayOnline}>
-                        Thanh Toán online
-                      </button>
-                    </div>
-                  </div>
-                  <br />
-                  <div className="discount-code-wrapper">
+                      </div> */}
+                    </div> 
+
+                    <div className="discount-code-wrapper mt-25">
                     <div className="title-wrap">
                       <h4 className="cart-bottom-title section-bg-gray">
                         Mã giảm giá
@@ -738,9 +762,27 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                       </form>
                     </div>
                   </div>
+                  
+                    <div className="place-order mt-25">
+                      <button
+                        className="btn-hover"
+                        onClick={confirmOrderShipCode}>
+                        Đặt lịch không đặt cọc
+                      </button>
+                    </div>
+                    <div className="place-order mt-25">
+                      <button
+                        className="btn-hover"
+                        onClick={confirmOrderPayOnline}>
+                        Đặt cọc online
+                      </button>
+                    </div>
+                  </div>
+                  <br />
+                  
                 </div>
               </div>
-            ) : (
+            {/* ) : (
               <div className="row">
                 <div className="col-lg-12">
                   <div className="item-empty-area text-center">
@@ -756,7 +798,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </LayoutOne>

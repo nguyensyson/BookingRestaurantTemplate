@@ -32,7 +32,7 @@ const HomeOrganicFood = () => {
           spaceBottomClass="pb-30"
           category="all"
           status={0}
-          titleText="Món ăn mới nhất"
+          titleText="Combo ưu thích"
           productTabClass="product-tab-fruits"
         />
         <TabProductCategory

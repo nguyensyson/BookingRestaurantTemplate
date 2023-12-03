@@ -25,10 +25,10 @@ const CustomForm = ({
       <div className="mc-form">
         <div>
           <input
-            className="email"
+            className="sdt"
             ref={node => (email = node)}
-            type="email"
-            placeholder="Địa chỉ email của bạn"
+            type="text"
+            placeholder="Nhập số điện thoại của bạn"
             required
           />
         </div>

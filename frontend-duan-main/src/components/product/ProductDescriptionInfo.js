@@ -264,7 +264,7 @@ const ProductDescriptionInfo = ({
       ) : (
         ""
       )}
-      {product.tag ? (
+      {/* {product.tag ? (
         <div className="pro-details-meta">
           <span>Nhãn :</span>
           <ul>
@@ -283,7 +283,7 @@ const ProductDescriptionInfo = ({
         </div>
       ) : (
         ""
-      )}
+      )} */}
 
       {/* <div className="pro-details-social">
                 <ul>

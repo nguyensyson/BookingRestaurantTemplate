@@ -17,7 +17,7 @@ const TabProductCategory = ({
   const [data, setDatas] = useState([
     {
       productTypeId: 1,
-      nameProductType: "Hàng chay cấp đông",
+      nameProductType: "Món ăn",
       imageTypeProduct:
         "https://res.cloudinary.com/doedovklj/image/upload/v1686794187/xyz-abc_638224161851379056image.webp",
       createdAt: "2023-06-04T14:52:00.2831254",
@@ -26,7 +26,7 @@ const TabProductCategory = ({
     },
     {
       productTypeId: 3,
-      nameProductType: "Món Cơm",
+      nameProductType: "Nước uống",
       imageTypeProduct:
         "https://res.cloudinary.com/doedovklj/image/upload/v1686794050/xyz-abc_638224160489753108image.webp",
       createdAt: "2023-06-13T14:20:31.2382471",
@@ -35,7 +35,7 @@ const TabProductCategory = ({
     },
     {
       productTypeId: 4,
-      nameProductType: "Món Nộm",
+      nameProductType: "Rượu",
       imageTypeProduct:
         "https://res.cloudinary.com/doedovklj/image/upload/v1686793993/xyz-abc_638224159912695779image.webp",
       createdAt: "2023-06-13T14:20:31.2382471",
@@ -44,7 +44,7 @@ const TabProductCategory = ({
     },
     {
       productTypeId: 6,
-      nameProductType: "Món Chay Mặn",
+      nameProductType: "Món tráng miệng",
       imageTypeProduct:
         "https://res.cloudinary.com/doedovklj/image/upload/v1686793918/xyz-abc_638224159162019553image.webp",
       createdAt: "2023-06-13T14:20:31.2382471",

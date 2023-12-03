@@ -22,6 +22,8 @@ import Policy from "./pages/other/Policy";
 const HomeOrganicFood = lazy(() => import("./pages/home/HomeOrganicFood"));
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
+// combo pages
+const ComboProducts = lazy(() => import("./pages/combo/ComboProducts"));
 // product pages
 const Product = lazy(() => import("./pages/shop-product/Product"));
 // blog pages
@@ -87,6 +89,11 @@ const App = (props) => {
                 <Route
                   path={process.env.PUBLIC_URL + "/shop-grid-standard"}
                   component={ShopGridStandard}
+                />
+                {/* combo pages */}
+                <Route
+                  path={process.env.PUBLIC_URL + "/combo"}
+                  component={ComboProducts}
                 />
                 {/* Shop product pages */}
                 <Route
