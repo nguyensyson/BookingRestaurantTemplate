@@ -6,7 +6,8 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useToasts } from "react-toast-notifications";
 import VoucherApi from "../../../api/voucher/VoucherApi";
 import { format } from "date-fns";
-import { DatePicker } from "antd";
+import { DatePicker, Select, Table } from "antd";
+import moment from "moment";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "* ${label} không được để trống",
@@ -15,6 +16,44 @@ const validateMessages = {
   },
 };
 const OrderAdd = () => {
+  const dataSource = [
+    {
+      key: "1",
+      name: "Mike",
+      age: 32,
+      address: "10 Downing Street",
+    },
+    {
+      key: "2",
+      name: "John",
+      age: 42,
+      address: "10 Downing Street",
+    },
+  ];
+
+  const columns = [
+    {
+      title: "Avatar",
+      dataIndex: "avatar",
+      key: "avatar",
+    },
+    {
+      title: "Name product",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+    },
+  ];
+  const defaultDateTime = moment();
   const { addToast } = useToasts();
   const history = useHistory();
   const [form] = Form.useForm();
@@ -59,11 +98,11 @@ const OrderAdd = () => {
         }}
       >
         <Breadcrumb.Item>Bảng điều khiển</Breadcrumb.Item>
-        <Breadcrumb.Item>Tạo mã giảm giá</Breadcrumb.Item>
+        <Breadcrumb.Item>Tạo phiếu đặt</Breadcrumb.Item>
       </Breadcrumb>
       <div className="mt-3">
         <Title level={4} className="text-uppercase text-center">
-          Thêm mã giảm giá
+          Thêm phiếu đặt
         </Title>
         {loading && (
           <div>
@@ -79,53 +118,143 @@ const OrderAdd = () => {
           form={form}
           validateMessages={validateMessages}
         >
-          <Form.Item
-            label="Tên mã giảm giá"
-            name="voucherName"
-            labelCol={{ span: 3, offset: 1 }}
-            tooltip="Tên mã giảm giá"
-            rules={[{ required: true }]}
-          >
-            <Input
-              style={{ height: 30 }}
-              placeholder="Nhập tên mã giảm giá..."
-            />
-          </Form.Item>
-          <Form.Item
-            label="Phần trăm mã giảm giá"
-            name="valuevoucher"
-            labelCol={{ span: 3, offset: 1 }}
-            tooltip="Giá gốc mã giảm giá"
-            rules={[{ required: true }]}
-          >
-            <Input
-              style={{ height: 30 }}
-              placeholder="Nhập giá mã giảm giá..."
-              type="number"
-            />
-          </Form.Item>
-          <Form.Item
-            label="Số lượng"
-            name="countVoucher"
-            labelCol={{ span: 3, offset: 1 }}
-            tooltip="Tổng số lượng mã giảm giá"
-            rules={[{ required: true }]}
-          >
-            <Input
-              style={{ height: 30 }}
-              placeholder="Nhập số lượng mã giảm giá..."
-              type="number"
-            />
-          </Form.Item>
-          <Form.Item
-            label="HSD"
-            name="expirationDate"
-            labelCol={{ span: 3, offset: 1 }}
-            tooltip="Hạn sử dụng mã giảm giá"
-            rules={[{ required: true }]}
-          >
-            <DatePicker placeholder="Hạn sử dụng..." />
-          </Form.Item>
+          <div className="row">
+            <div className="col-6">
+              <Form.Item
+                label="Số điện thoại"
+                name="sdt"
+                labelCol={{ span: 6 }}
+                tooltip="số điện thoại"
+                rules={[{ required: true }]}
+              >
+                <Input
+                  style={{ height: 30 }}
+                  placeholder="Nhập số điện thoại..."
+                />
+              </Form.Item>
+            </div>
+            <div className="col-6">
+              <Form.Item
+                label="Họ và tên"
+                name="fullname"
+                labelCol={{ span: 6 }}
+                tooltip="họ và tên"
+                rules={[{ required: true }]}
+              >
+                <Input
+                  style={{ height: 30 }}
+                  placeholder="Nhập họ và tên..."
+                  type="text"
+                />
+              </Form.Item>
+            </div>
+
+            <div className="col-6">
+              <Form.Item
+                label="Số người"
+                name="countPeople"
+                labelCol={{ span: 5, offset: 1 }}
+                tooltip="Tổng số người"
+                rules={[{ required: true }]}
+              >
+                <Input
+                  style={{ height: 30 }}
+                  placeholder="Nhập số người..."
+                  type="number"
+                />
+              </Form.Item>
+            </div>
+            <div className="col-6">
+              <Form.Item
+                label="Ngày và giờ"
+                name="dateBooking"
+                labelCol={{ span: 5, offset: 1 }}
+                tooltip="ngày và giờ đặt"
+                rules={[{ required: true }]}
+              >
+                <DatePicker
+                  showTime={{ format: "HH:mm" }}
+                  format="YYYY-MM-DD HH:mm"
+                  placeholder="Ngày và giờ đặt..."
+                  defaultValue={defaultDateTime}
+                />
+              </Form.Item>
+            </div>
+
+            <div className="col-6">
+              <Form.Item
+                label="loại phòng"
+                name="categoryRoom"
+                labelCol={{ span: 5, offset: 1 }}
+                tooltip="loại phòng"
+                rules={[{ required: true }]}
+              >
+                <Select placeholder="Chọn Loại phòng" defaultValue={"1"}>
+                  {/* {categories &&
+                    categories.map((item) => {
+                      return (
+                        <Select.Option
+                          key={item.productTypeId}
+                          value={item.productTypeId}
+                        >
+                          {item.nameProductType}
+                        </Select.Option>
+                      );
+                    })} */}
+                  <Select.Option value="1">Phòng thường</Select.Option>
+                  <Select.Option value="2">Phòng VIP</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
+            <div className="col-6">
+              <Form.Item
+                label="Phòng"
+                name="room"
+                labelCol={{ span: 5, offset: 1 }}
+                tooltip="phòng"
+                rules={[{ required: true }]}
+              >
+                <Select placeholder="Chọn phòng">
+                  {/* {categories &&
+                    categories.map((item) => {
+                      return (
+                        <Select.Option
+                          key={item.productTypeId}
+                          value={item.productTypeId}
+                        >
+                          {item.nameProductType}
+                        </Select.Option>
+                      );
+                    })} */}
+                  <Select.Option>101</Select.Option>
+                  <Select.Option>102</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
+            <div className="col-12">
+              <Form.Item
+                label="Bàn ăn"
+                name="table"
+                labelCol={{ span: 2, offset: 1 }}
+                tooltip="bàn ăn"
+                rules={[{ required: true }]}
+              >
+                <Table dataSource={dataSource} columns={columns} />;
+              </Form.Item>
+            </div>
+            <div className="col-12">
+              <Form.Item
+                label="Món ăn"
+                name="product"
+                labelCol={{ span: 2, offset: 1 }}
+                tooltip="món ăn"
+                rules={[{ required: true }]}
+              >
+                <Table dataSource={dataSource} columns={columns} />;
+              </Form.Item>
+            </div>
+          </div>
+
           <Form.Item wrapperCol={{ span: 16, offset: 4 }}>
             <Button
               type="primary"
@@ -133,7 +262,7 @@ const OrderAdd = () => {
               onClick={onHandleSubmit}
               block
             >
-              Thêm mới mã giảm giá
+              Thêm mới phiếu đặt
             </Button>
           </Form.Item>
         </Form>

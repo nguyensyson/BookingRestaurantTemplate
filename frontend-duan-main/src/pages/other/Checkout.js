@@ -19,6 +19,7 @@ import AddressApi from "../../api/ghn/AddressApi";
 import GiaoHangNhanhApi from "../../api/ghn/GiaoHangNhanhApi";
 import { number } from "prop-types";
 import DatePicker from 'react-datepicker';
+import { setHours, setMinutes } from "date-fns";
 
 const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
   const validateUserOrder = (userOrder) => {
@@ -77,7 +78,9 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [wards, setWards] = useState([]);
   const [selectedWard, setSelectedWard] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(
+    setHours(setMinutes(new Date(), 30), 16),
+  );
   // const handleDateChange = date => {
   //   setSelectedDate(date);
   //   // You can perform any additional operations here when the date changes
@@ -498,7 +501,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-select mb-20">
-                          <label>Loại phòng</label>
+                          <label>Loại phòng mong muốn</label>
                           <select
                                 onChange={handleProvinceChange}
                                 value={selectedProvince || ""}>
@@ -514,35 +517,21 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                         </div>
                       </div>
 
-                      <div className="col-lg-4 col-md-4">
+                      <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>Ngày</label>
-                          {/* <input
-                            type="text"
-                            onChange={onChanginput}
-                            name="date"
-                            value={userOrder.phone}
-                          /> */}
+                          <label>Ngày và giờ check in</label>
                           <DatePicker
                             // showIcon
                             selected={selectedDate}
                             onChange={(date) => setSelectedDate(date)}
+                            showTimeSelect
                             // icon="fa fa-calendar"
+                            dateFormat="dd/MM/yyyy HH:mm aa"
                           />
                         </div>
                       </div>
-                      <div className="col-lg-4 col-md-4">
-                        <div className="billing-info mb-20">
-                          <label>Giờ check in</label>
-                          <input
-                            name="hour"
-                            onChange={onChanginput}
-                            type="text"
-                            value={userOrder.email}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-4 col-md-4">
+                      
+                      <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Số người tham gia</label>
                           <input
