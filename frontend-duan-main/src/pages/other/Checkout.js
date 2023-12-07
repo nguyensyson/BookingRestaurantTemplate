@@ -526,7 +526,7 @@ const Checkout = ({ location, cartItems, currency, confirmOrders }) => {
                             onChange={(date) => setSelectedDate(date)}
                             showTimeSelect
                             // icon="fa fa-calendar"
-                            dateFormat="dd/MM/yyyy HH:mm aa"
+                            dateFormat="dd/MM/yyyy HH:mm"
                           />
                         </div>
                       </div>
